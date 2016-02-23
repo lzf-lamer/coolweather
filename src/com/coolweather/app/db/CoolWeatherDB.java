@@ -1,4 +1,4 @@
-package com.coolweather.app.model;
+package com.coolweather.app.db;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.coolweather.app.db.CoolWeatherOpenHelper;
+import com.coolweather.app.model.City;
+import com.coolweather.app.model.County;
+import com.coolweather.app.model.Province;
 
 public class CoolWeatherDB {
 	/**
@@ -50,7 +52,7 @@ public class CoolWeatherDB {
 	 * 从数据库读取全国所有的省份信息
 	 */
 	public List<Province> loadProvinces(){
-		List<Province> list = new ArrayList();
+		List<Province> list = new ArrayList<Province>();
 		Cursor cursor = db.
 				query("Province",null,null,null,null,null,null);
 		if(cursor.moveToFirst()){
@@ -83,7 +85,7 @@ public class CoolWeatherDB {
 	 * 从数据库下读取某省下所有城市的信息
 	 */
 	public List<City> loadCities(int provinceId){
-		List<City> list = new ArrayList();
+		List<City> list = new ArrayList<City>();
 		Cursor cursor = db.query("City", null, "province_id = ?", 
 				new String[]{String.valueOf(provinceId)}, null, null, null);
 		if(cursor.moveToFirst()){
@@ -117,7 +119,7 @@ public class CoolWeatherDB {
 	 * 从数据库中读取某城市下所有县信息
 	 */
 	public List<County> loadCounties(int cityId){
-		List<County> list = new ArrayList();
+		List<County> list = new ArrayList<County>();
 		Cursor cursor = db.query("County", null, "city_id = ?",
 				new String[]{String.valueOf(cityId)},null,null,null);
 		if(cursor.moveToFirst()){
@@ -135,11 +137,4 @@ public class CoolWeatherDB {
 		}
 		return list;
 	}
-	
-	
-	
-	
-	
-	
-	
 }
